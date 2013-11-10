@@ -34,7 +34,7 @@ if sys.version_info[0] == 2:
 elif sys.version_info[0] == 3:
     from email import encoders as email_encoders
     basestring = str
-    
+
     def unicode(_str, _charset):
         return str(_str.encode(_charset), _charset)
 else:
@@ -128,6 +128,18 @@ class Envelope(object):
         self._charset = charset
 
         self._addr_format = unicode(self.ADDR_FORMAT, charset)
+
+    def __repr__(self, verbose = False):
+        print "From:", self._from
+        print "To:", self._to
+
+        if verbose:
+            print "CC:", self._cc
+            print "BCC:", self._bcc
+            print "Headers:", self._headers
+
+        print "Subject:", self._subject
+        print "Message:", self._parts
 
     @property
     def to_addr(self):
